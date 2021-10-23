@@ -23,7 +23,7 @@ int main() {
 	for (int i=0; i <= breite-1; i++) { // gibt A in jeder Spalte aus
 	  printf("A ");
 	}
-	printf("\n"); // keine Leerzeile nach unterster Zeile ist eigentlich Aufgabenvorgabe
+	//printf("\n"); // keine Leerzeile nach unterster Zeile ist eigentlich Aufgabenvorgabe
       } // Ende else-if-Schleife Rand unten
 
       else { // falls weder oberste noch unterste, somit mittlere Zeile
