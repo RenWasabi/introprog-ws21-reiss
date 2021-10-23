@@ -18,14 +18,14 @@ int main() {
       
       if (j==0) {  // wenn oberste Zeile:
 	for (int i=0; i <= breite-1; i++) { // gibt A in jeder Spalte aus
-	  printf("A ");
+	  printf("A");
 	}
 	printf("\n"); // setze Umbruch hinter oberste Zeile       
       } // Ende if-Schleife Rand oben
 
       else if (j==hoehe-1) {  // wenn unterste Zeile:
 	for (int i=0; i <= breite-1; i++) { // gibt A in jeder Spalte aus
-	  printf("A ");
+	  printf("A");
 	}
 	//printf("\n"); // keine Leerzeile nach unterster Zeile ist eigentlich Aufgabenvorgabe
       } // Ende else-if-Schleife Rand unten
@@ -33,13 +33,13 @@ int main() {
       else { // falls weder oberste noch unterste, somit mittlere Zeile
 	for (int i=0; i<= breite-1; i++) { // für jede mittlere Zeile
 	  if (i==0) { // am linken Rand: gibt A aus
-	    printf("A "); 
+	    printf("A"); 
 	  }
 	  else if (i==breite-1) { // am rechten Rand: gibt A aus
-	    printf("A ");
+	    printf("A");
 	  }
 	  else { // in den mittleren Spalten: gibt B aus
-	    printf("B ");
+	    printf("B");
 	  }
 	} // Ende for-Schleife Spalten
         printf("\n");  // setze Umbruch hinter jede mittlere Zeile	
