@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 int main() {
-    int breite = 6;
-    int hoehe = 3;
+    int breite = 0;
+    int hoehe = 0;
     breite = breite+2;  // damit die Maße sich auf B beziehen und A zusätzlicher Rand ist
     hoehe = hoehe+2;
 
@@ -27,7 +27,7 @@ int main() {
 	for (int i=0; i <= breite-1; i++) { // gibt A in jeder Spalte aus
 	  printf("A ");
 	}
-	printf("\n"); // keine Leerzeile nach unterster Zeile ist eigentlich Aufgabenvorgabe
+	//printf("\n"); // keine Leerzeile nach unterster Zeile ist eigentlich Aufgabenvorgabe
       } // Ende else-if-Schleife Rand unten
 
       else { // falls weder oberste noch unterste, somit mittlere Zeile
