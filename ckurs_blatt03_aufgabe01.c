@@ -4,6 +4,12 @@ int main() {
     int breite = 6;
     int hoehe = 3;
 
+    if (breite <= 0) {    // macht nichts, falls hoehe oder breite keine positiven Zahlen
+      return 0;
+    } else if (hoehe <= 0) {
+    return 0;
+    } else {
+
     for (int j=0; j < hoehe; j++) {  // geht zuerst jede Zeile, dann jede Spalte durch
       
       if (j==0) {  // wenn oberste Zeile:
@@ -34,6 +40,7 @@ int main() {
 	} // Ende for-Schleife Spalten
         printf("\n");  // setze Umbruch hinter jede mittlere Zeile	
       } // Ende else-Schleife Mitte
-      
     } // Ende for-Schleife Zeilen
+
+} // Ende else-Schleife, falls hoehe/breite nicht zulässig
 }  // Eine main-Fkt
