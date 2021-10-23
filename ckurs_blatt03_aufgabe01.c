@@ -5,9 +5,9 @@ int main() {
     int hoehe = 3;
 
     if (breite < 0) {    // macht nichts, falls hoehe oder breite keine positiven Zahlen
-      return 0;
+      printf("\n");
     } else if (hoehe < 0) {
-    return 0;
+      printf("\n");
     } else {
 
     for (int j=0; j <= hoehe-1; j++) {  // geht zuerst jede Zeile, dann jede Spalte durch
