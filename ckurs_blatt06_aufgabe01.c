@@ -21,10 +21,15 @@ int main() {
     
     // filtern
     for (int i=0; i<n; i++) {
-      if (i == 1) {  // nur rausfiltern, wenn durch nichts Voriges teilbar
-	for (int j=i; j<n; j++) { // gehe mit diesem Index über alle nachfolgenden Zahlen
-	  if ((j+2) % (i+2) == 0) {  //falls Nachfolgende teilbar, setze ihren Wert gleich 0
-	    prim_array[j] = 0;
+      if (prim_array[i] == 1) {  // nur rausfiltern, wenn durch nichts Voriges teilbar
+	for (int j=0; j<n; j++) { // gehe mit diesem Index über alle nachfolgenden Zahlen
+	  //	  if ((j+2) % (i+2) == 0) {  //falls Nachfolgende teilbar, setzeren Wert gleich 0
+	  //    prim_array[j] = 0;
+	  // }
+	  int x = 1;
+	  while (x < laenge+2 ) {
+	    prim_array[i+(i+2)*x] = 0;
+	    x = x +1; 
 	  }
 	}
       }
