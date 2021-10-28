@@ -28,7 +28,7 @@ int main() {
 	  // }
 	  int x = 1;
 	  while (x < laenge+2 ) {
-	    prim_array[i+(i+2)*x] = 0;
+	    prim_array[(i+2)*x] = 0;
 	    x = x +1; 
 	  }
 	}
