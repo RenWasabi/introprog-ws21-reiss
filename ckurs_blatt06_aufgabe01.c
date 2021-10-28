@@ -15,19 +15,19 @@ int main() {
     int* prim_array = malloc(n* sizeof(int));
 
     // initialisiere Array mit 1 überall
-    for (int i=0; i<n; i++) {
+    for (int i=0; i<=n; i++) {
       prim_array[i] = 1;
     }
     
     // filtern
-    for (int i=0; i<n; i++) {
+    for (int i=0; i<=n; i++) {
       if (prim_array[i] == 1) {  // nur rausfiltern, wenn durch nichts Voriges teilbar
 	for (int j=0; j<n; j++) { // gehe mit diesem Index über alle nachfolgenden Zahlen
 	  //	  if ((j+2) % (i+2) == 0) {  //falls Nachfolgende teilbar, setzeren Wert gleich 0
 	  //    prim_array[j] = 0;
 	  // }
 	  int x = 1;
-	  while (x < laenge ) {
+	  while (x < laenge+1 ) {
 	    prim_array[i+(i+2)*x] = 0;
 	    x = x +1; 
 	  }
