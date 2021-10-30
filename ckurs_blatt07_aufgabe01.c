@@ -8,7 +8,8 @@ int main() {
     char monat[] = "Mai";
     int jahr = 1927;
     char *string; // Hier soll das Datum hineingeschrieben werden!
-    const size_t kapazitaet = 101 * sizeof(char); // Maximale Laenge des Datumstrings!
+    const size_t kapazitaet = 100 * sizeof(char); // Maximale Laenge des Datumstrings!
+    /* Man soll weniger als 101 byte Speicher reservieren */
 
     // Hier implementieren und dynamisch Speicher reservieren
 
@@ -21,7 +22,7 @@ int main() {
     string = (char*) malloc(kapazitaet);
 
     // das Datum in den String drucken
-    snprintf(string, kapazitaet, "%s, der %d. %s %d\n", wochentag, tag, monat, jahr);
+    snprintf(string, kapazitaet, "%s, der %d. %s %d", wochentag, tag, monat, jahr);
 
     printf("%s\n", string);
     // Speicher freigeben
