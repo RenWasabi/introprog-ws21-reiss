@@ -43,25 +43,46 @@ int main(int argc, char **argv) {
    
     // Hier implementieren
 
+    /* Folgende Schleife filtert, ob welche Städte mit den dazugehörigen Informationen
+     * in die .txt-Datei geschrieben werden sollen. Sie macht zwei Dinge:
+     *
+     * 1. sie zählt die Anzahl an Städten, die durchkommen, sodass diese Größe genutzt
+     * werden kann, um den Speicherplatz für das Array mit den verweisen auf die ganzen
+     * Sätze zu reservieren (durchgekommene Städte = benötigte Zeilen/Sätze = Adressen im
+     * Array, dass an write_file gegeben wird
+     *
+     * 2. sie "merkt" sich den Index der Städte, die durchkommen, indem sie die Einwohnerzahl
+     * der Städte, die (da falsches Bundesland oder zu wenig Einwohner) nicht durchkommen, auf
+     * -1 setzt. Dadurch vermeiden wir, ein zusätzliches Array zum "merken" zu brauchen und 
+     * sparen damit Speicher. */
+
+    int staedte_in_liste = len; // zählt die Städte, auf die die Bedingungen zutreffen
+    
     for (int i = 0; i < len; i++) { /* gehe jeden Index der Arrays, das entspricht jedem
     		      		 * .csv-Eintrag, durch */
-      if (strncmp(argv[2], laender[i], 100) == 0) { /* Prüft, ob dass Bundesland des Eintrags,
-    							 * der dran ist, mit dem eingegebenen
+      if (strncmp(argv[2], laender[i], 100) != 0) { /* Prüft, ob dass Bundesland des Eintrags,
+    							 * der dran ist, NICHT mit dem eingegebenen
     							 * Bundesland übereinstimmt, 100 nur
     							 * zur Sicherheit als Vergleichsgrenze*/
-    	printf("eingegeben %s; enthält Stadt: %s\n", argv[2], staedte[i]); // funktioniert
+	bewohner[i] = -1;  // falls falsches Bundesland
+      }
 
-	if (bewohner[i] >= anzahl) { // prüft, ob Einwohner ausreichen
-	  printf("Stadt %s in %s hat gleich oder mehr %d Einwohner\n", staedte[i], argv[2], anzahl);
-	  // funktioniert
+      if (bewohner[i] < anzahl) { /* prüft, ob Einwohner NICHT ausreichen
+				   * tritt entweder ein, wenn falsches Bundesland, oder wenn wirklich
+				   * zu wenig Einwohner */
+	bewohner[i] = -1; // falls zu wenig Bewohner
+	staedte_in_liste = staedte_in_liste -1; // ziehe die rausgefilterten vom Zähler ab
+	}
+    }
 
-	} // Ende: Anzahl-if
-
-	
-
-      } // Ende: Bundesland-if
-
-    } // Ende: Schleife .csv-Einträge
+    printf("Insgesamt haben %d Städte in %s mindestens %d Einwohner.\n\n", staedte_in_liste, argv[2], anzahl);
+    
+    for (int i = 0; i < len; i++) {
+      if (bewohner[i] >= anzahl) {
+	printf("%s in %s hat %d Einwohner.\n", staedte[i], laender[i], bewohner[i]);
+      }
+    }
+    
 
     /* // Mithilfe von write_file(...) soll das Ergebnis in die "resultat.txt" */
     // geschrieben werden. 
