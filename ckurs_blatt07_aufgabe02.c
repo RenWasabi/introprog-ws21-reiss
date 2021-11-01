@@ -16,7 +16,8 @@ int main(int argc, char **argv) {
         printf("Klein-/Großschreibung beachten!\n");
         exit(1);
     }
-    int anzahl = atoi(argv[1]);
+    int anzahl = atoi(argv[1]); // argv[1] selbst ist ein String
+    printf("Anzahl als String: %s\n", argv[1]);
     char *bundesland = argv[2];  /* char pointer zeigt auf erstes Element (Zeichen) des Bundes-
 				  * land strings */
      printf("Test: %p\n", bundesland); 
@@ -43,6 +44,8 @@ int main(int argc, char **argv) {
    
     // Hier implementieren
 
+    
+    // Städte-Filter: rausgefilterte Städte haben -1 Bewohner
     /* Folgende Schleife filtert, ob welche Städte mit den dazugehörigen Informationen
      * in die .txt-Datei geschrieben werden sollen. Sie macht zwei Dinge:
      *
@@ -75,17 +78,61 @@ int main(int argc, char **argv) {
 	}
     }
 
-    printf("Insgesamt haben %d Städte in %s mindestens %d Einwohner.\n\n", staedte_in_liste, argv[2], anzahl);
-    
+    printf("Insgesamt haben %d Städte in %s mindestens %d Einwohner.\n\n", staedte_in_liste, argv[2], anzahl); //Test
+
+    // Test
     for (int i = 0; i < len; i++) {
       if (bewohner[i] >= anzahl) {
 	printf("%s in %s hat %d Einwohner.\n", staedte[i], laender[i], bewohner[i]);
       }
     }
-    
 
-    /* // Mithilfe von write_file(...) soll das Ergebnis in die "resultat.txt" */
-    // geschrieben werden. 
 
+    /* das Array erstellen, in dem Sätze mit den gefilterten Städten gesammelt werden
+     *
+     * Das Array result_array selbst enthält pointer auf die Adressen, in denen die Strings
+     * mit den Sätzen stehen. Das Array enthält so viele Adressen, durchgekommene Städte, daher 
+     * wissen wir seine Größe jetzt nach dem Filtern bereits. */
+    char *result_array[staedte_in_liste]; /* kann man mit char* sowohl einen String (char-Array)
+					   * als auch ein Array, das String-Adressen sammelt, 
+					   * erstellen? Oder heißt es nur, dass es auf char/strings					            * pointet? */
+
+    /* Dynamische Speicherreservierung in Arrays muss als Funktion umgesetzt werden.
+     * Parameter: String-Stadtname ; Anzahl als String 
+     für jeden Eintrag der Durchkommt
+    reserviere Platz abhängig von Stringlänge
+     reserviere auf pointer p
+     setze result_array[i] gleich pointer
+     neuer Durchlauf */
+
+    /* zur Vereinfachung können wir davon ausgehen, dass die Länge des ausgegebenen
+     * trings nie mehr als 100 Zeichen überschreitet: */
+    const size_t kapazitaet = 100 * sizeof(char); /* verstehe ich nicht ganz, ist aus Übung */
+ 
+
+    int belegte_Zeilen = 0; // String muss in diesen Index von result_array
+     for (int i = 0; i < len; i++){
+       if (bewohner[i] >= 0) { // falls nicht rausgefiltert
+	 char *string = (char *) malloc(kapazitaet); /* dadurch dass der String innerhalb des Schleifen-
+						      * blocks definiert ist, handelt es sich bei jedem
+						      * Durchlauf tatsächlich um einen neuen pointer,
+						      * der auf seinen eigenen String zeigt. */
+	 snprintf(string, kapazitaet, "Die Stadt %s hat %d Einwohner.", staedte[i], bewohner[i]);
+	 result_array[belegte_Zeilen] = string;  // ordne den String einem pointer zu
+	 belegte_Zeilen = belegte_Zeilen + 1; 
+       }
+    }
+     
+
+        /* Mithilfe von write_file(...) soll das Ergebnis in die "resultat.txt"
+	 * geschrieben werden.*/
+     
+     // Schreibe die Ergebnisstrings in die .txt-Datei "staedte.txt"
+     write_file(result_array, staedte_in_liste);
+
+ 
     // Dynamisch allozierter Speicher muss hier freigegeben werden.
+     for (int i = 0; i < staedte_in_liste; i++) {
+       free(result_array[i]);
+     }
 }
