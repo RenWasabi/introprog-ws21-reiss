@@ -51,11 +51,17 @@ int main(int argc, char **argv) {
     							 * zur Sicherheit als Vergleichsgrenze*/
     	printf("eingegeben %s; enthält Stadt: %s\n", argv[2], staedte[i]); // funktioniert
 
+	if (bewohner[i] >= anzahl) { // prüft, ob Einwohner ausreichen
+	  printf("Stadt %s in %s hat gleich oder mehr %d Einwohner\n", staedte[i], argv[2], anzahl);
+	  // funktioniert
+
+	} // Ende: Anzahl-if
+
 	
 
-      }
+      } // Ende: Bundesland-if
 
-    }
+    } // Ende: Schleife .csv-Einträge
 
     /* // Mithilfe von write_file(...) soll das Ergebnis in die "resultat.txt" */
     // geschrieben werden. 
