@@ -62,8 +62,9 @@ int main(int argc, char *argv[]) {
     
     // initialize array for counting the number of occurences of a value with 0
     // int *count_array = calloc(MAX_VALUE, sizeof(int));
-    int count_array[MAX_VALUE];
-    for (int i = 0; i < MAX_VALUE; i++){
+    // +1 to include MAX_VALUR itself,necesary because 0 is included
+    int count_array[MAX_VALUE+1];
+    for (int i = 0; i <= MAX_VALUE; i++){
 
       count_array[i] = 0;
     }
