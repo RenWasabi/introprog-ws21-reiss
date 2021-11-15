@@ -5,7 +5,7 @@
 int MAX_LAENGE = 1000;
 int MAX_VALUE = 100;
 
-void count_sort_calculate_counts(int input_array[], int len, int count_array[MAX_LAENGE]) {
+void count_sort_calculate_counts(int input_array[], int len, int count_array[]) {
 
   /* count the number of occurences
    * count_array index := value, count_array value := number of occurences */
@@ -25,7 +25,7 @@ void count_sort_write_output_array(int output_array[], int len, int count_array[
    * number of copies = value of the counter array at that index */
 
   // i := index of counter array (value)
-  for (int i = 0; i < MAX_VALUE; i++){
+  for (int i = 0; i <= MAX_VALUE; i++){
 
     // copy the index into the output array according to the counter value
     // j := times of copying
@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
     
     // initialize array for counting the number of occurences of a value with 0
     // int *count_array = calloc(MAX_VALUE, sizeof(int));
-    // +1 to include MAX_VALUR itself,necesary because 0 is included
+    // +1 to include MAX_VALUR itself,necessary because 0 is included
     int count_array[MAX_VALUE+1];
     for (int i = 0; i <= MAX_VALUE; i++){
 
