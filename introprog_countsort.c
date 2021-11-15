@@ -61,7 +61,12 @@ int main(int argc, char *argv[]) {
   
     
     // initialize array for counting the number of occurences of a value with 0
-    int *count_array = calloc(MAX_VALUE, sizeof(int));
+    // int *count_array = calloc(MAX_VALUE, sizeof(int));
+    int count_array[MAX_VALUE];
+    for (int i = 0; i < MAX_VALUE; i++){
+
+      count_array[i] = 0;
+    }
 
     // take input array, count its values using the count array
     count_sort_calculate_counts( input_array, len, count_array);
@@ -76,12 +81,9 @@ int main(int argc, char *argv[]) {
 
     printf("Sortiertes Array:");
   
-
-    /* Folgende Zeile einkommentieren, um das Array auszugeben! */
     print_array(output_array, len);
 
     
-    free(count_array);
-    
+      
     return 0;
 }
