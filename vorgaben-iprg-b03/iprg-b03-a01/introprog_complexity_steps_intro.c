@@ -50,15 +50,30 @@ long for_kubisch(int n, int* befehle)
     // TODO: Die Befehle müssen richtig gezählt werden
 
     long sum = 0;
+    (*befehle)++; // Initialisierung sum
+    (*befehle)++; // Initialiserung äußere Laufvariable i
     for(int i = 1; i <= n; ++i) {
+      (*befehle)++; // äußerer Vergleich true
+      (*befehle)++; // Initialisierung mittlere Laufvariable j
         for(int j = 1; j <= n; ++j) {
+	  (*befehle)++; // mittlerer Vergleich true
+	  (*befehle)++; // Initialisierung innere Laufvariable k
             for(int k = 1; k <= n; ++k) {
+	      (*befehle)++; // innerer Vergleich true
                 // Zähle die folgende Zeile als genau ein
                 // Befehl!
                 sum += get_value_one();
+		(*befehle)++; // Erhöhung sum um 1
+		(*befehle)++; // Inkrementierung innere Laufvariable k
             }
+	    (*befehle)++; // innerer Vergleich false
+	    (*befehle)++; // Inkrementierung mittlere Laufvariable k
         }
+	(*befehle)++; // mittlerer Vergleich false
+	(*befehle)++; // Inkrementierung äußere Laufvariable i
     }
+    (*befehle)++; // äußerer Vergleich false
+    (*befehle)++; // return
     return sum;
 }
 
