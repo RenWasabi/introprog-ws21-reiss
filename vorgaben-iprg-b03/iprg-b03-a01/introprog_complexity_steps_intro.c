@@ -25,12 +25,23 @@ long for_quadratisch(int n, int* befehle)
     // TODO: Die Befehle müssen richtig gezählt werden
 
     long sum = 0;
+    (*befehle)++; // Initialisierung sum
+    (*befehle)++; // Initialisierung Laufvariable i äußere for-Schleife
     for(int i = 1; i <= n; ++i) {
+      (*befehle)++; // Vergleich äußere Schleife true
+      (*befehle)++; // Initialisierung Laufvariable j innere for-Schleife
         for(int j = 1; j <= n; ++j) {
+	  (*befehle)++; // Vergleich innere Schleife true
             // Zähle die folgende Zeile als genau ein Befehl!
             sum += get_value_one();
+	    (*befehle)++;  // Erhöhung sum um 1
+	    (*befehle)++;  // Inkrementierung innere Laufvariable j
         }
+	(*befehle)++;  // Vergleich innere for-Schleife false
+	(*befehle)++; // Inkrementiere äußere Laufvariable i
     }
+    (*befehle)++;  // Vergleich äußere Schleife false
+    (*befehle)++; // return
     return sum;
 }
 
