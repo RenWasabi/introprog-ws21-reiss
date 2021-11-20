@@ -19,6 +19,26 @@ void count_sort(int array[], int len, unsigned int* befehle) {
 
 void insertion_sort(int array[], int len, unsigned int* befehle) {
     // Muss implementiert werden
+  (*befehle)++; // Initialisierung Laufvariable j der for-Schleife
+  for (int j=1; j<len; j++{
+      (*befehle)++; // Vergleich for-Schleife true
+      int key = array[j];
+      (*befehle)++; // Zuweisung key
+      
+      int i = j-1; // Zuweisung Anfangswert der Laufvariablen i der while-Schleife
+      while (i>=0 && array[i] > key){
+	(*befehle)++; // Vergleich while-Schleife true
+	array[i+1] = array[i];
+	(*befehle)++;  // Zuweisung Array[i+1] (Verschiebung Elemente nach rechts)
+	i= i-1;
+	(*befehle)++;  // Verringerung Laufvariable i der while-Schleife
+      }
+      (*befehle)++;  // Vergleich while-Schleife false
+      array[i+1] = key; 
+      (*befehle)++; // Zuweisung array[i+1] (füge Element an soriertem Platz ein)
+      (*befehle)++; // Inkrementierung Laufvariable j der for-Schleife
+  }
+  (*befehle)++; // Vergleich for-Schleife false
 }
 
 
