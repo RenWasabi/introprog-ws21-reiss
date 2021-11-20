@@ -21,7 +21,7 @@ void count_sort_write_output_array(int output_array[], int len, int count_array[
   int output_array_index = 0;
   (*befehle)++; // Initialiserung output_array_index
   (*befehle)++; // Initialisierung äußere Laufvariable j
-  for (int i = 0; j <= MAX_VALUE; i++){
+  for (int i = 0; i <= MAX_VALUE; i++){
     (*befehle)++;  // äußerer Vergleich true
 
     (*befehle)++; // Initialisierung innere Laufvariable j
@@ -43,13 +43,34 @@ void count_sort_write_output_array(int output_array[], int len, int count_array[
 
 void count_sort(int array[], int len, unsigned int* befehle) {
     // Muss implementiert werden
+
+  // initialisieren des Zählerarrays
+  // reserviere Speicher für das Zählerarray, Länge entspricht Wertebereich +1 (also +0)
+  int* count_array = malloc((MAX_VALUE+1) * sizeof(int));
+  (*befehle)++; // Speicherallozierung
+  // initialisiere Array mit 0
+  (*befehle)++; // Initialisierung Laufvariable i  
+  for (int i=1; i <= MAX_VALUE; i++){
+    (*befehle)++; // Vergleich true
+    count_array[i] = 0;
+    (*befehle)++; // Zuweisung Arrayfeld
+    (*befehle)++; // Inkrementierung Laufvariable i
+  }
+  (*befehle)++; // Vergleich false
+
+  count_sort_calculate_counts(array, len, count_array, befehle);
+  
+  // schreibe das sortierte Array zurück in das Eingangsarray
+  count_sort_write_output_array( array, len, count_array, befehle);
+  
+  
 }
 
 
 void insertion_sort(int array[], int len, unsigned int* befehle) {
     // Muss implementiert werden
   (*befehle)++; // Initialisierung Laufvariable j der for-Schleife
-  for (int j=1; j<len; j++{
+  for (int j=1; j<len; j++){
       (*befehle)++; // Vergleich for-Schleife true
       int key = array[j];
       (*befehle)++; // Zuweisung key
