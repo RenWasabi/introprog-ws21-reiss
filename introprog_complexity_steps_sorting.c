@@ -62,8 +62,9 @@ void count_sort(int array[], int len, unsigned int* befehle) {
   
   // schreibe das sortierte Array zurück in das Eingangsarray
   count_sort_write_output_array( array, len, count_array, befehle);
-  
-  
+
+  free(count_array);
+  (*befehle)++; // free  
 }
 
 
@@ -75,7 +76,8 @@ void insertion_sort(int array[], int len, unsigned int* befehle) {
       int key = array[j];
       (*befehle)++; // Zuweisung key
       
-      int i = j-1; // Zuweisung Anfangswert der Laufvariablen i der while-Schleife
+      int i = j-1;
+      (*befehle)++;  // Zuweisung Anfangswert der Laufvariablen i der while-Schleife
       while (i>=0 && array[i] > key){
 	(*befehle)++; // Vergleich while-Schleife true
 	array[i+1] = array[i];
