@@ -6,10 +6,39 @@ const int MAX_VALUE = 5000000;
 
 void count_sort_calculate_counts(int input_array[], int len, int count_array[], unsigned int* befehle) {
     // Muss implementiert werden
+  (*befehle)++; // Initialisierung Laufvariable i
+  for (int i = 0; i < len; i++){
+    (*befehle)++; // Vergleich true
+    count_array[ input_array[i] ] = count_array[ input_array[i] ] +1;
+    (*befehle)++; // Zuweisung count_array
+    (*befehle)++; // Inkrementierung Laufvariable i
+  }
+  (*befehle)++; // Vergleich false
 }
 
 void count_sort_write_output_array(int output_array[], int len, int count_array[], unsigned int* befehle) {
     // Muss implementiert werden
+  int output_array_index = 0;
+  (*befehle)++; // Initialiserung output_array_index
+  (*befehle)++; // Initialisierung äußere Laufvariable j
+  for (int i = 0; j <= MAX_VALUE; i++){
+    (*befehle)++;  // äußerer Vergleich true
+
+    (*befehle)++; // Initialisierung innere Laufvariable j
+    for (int j = 0; j < count_array[i]; j++){
+      (*befehle)++; // innerer Vergleich true
+
+      output_array[output_array_index] = i;
+      (*befehle)++; // Zuweisung output_array
+      output_array_index = output_array_index +1;
+      (*befehle)++; // Zuweisung output_array_index
+      (*befehle)++; // Inkrementierung innere Laufvariable i
+    }
+    (*befehle)++; // innerer Vergleich false
+    
+    (*befehle)++; // Inkrementierung äußere LAufvariable i
+  }
+  (*befehle)++; // äußerer Vergleich false
 }
 
 void count_sort(int array[], int len, unsigned int* befehle) {
