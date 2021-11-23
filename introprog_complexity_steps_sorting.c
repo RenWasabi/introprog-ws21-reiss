@@ -50,7 +50,7 @@ void count_sort(int array[], int len, unsigned int* befehle) {
   (*befehle)++; // Speicherallozierung
   // initialisiere Array mit 0
   (*befehle)++; // Initialisierung Laufvariable i  
-  for (int i=1; i <= MAX_VALUE; i++){
+  for (int i=0; i <= MAX_VALUE; i++){
     (*befehle)++; // Vergleich true
     count_array[i] = 0;
     (*befehle)++; // Zuweisung Arrayfeld
