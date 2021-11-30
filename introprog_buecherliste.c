@@ -154,7 +154,7 @@ void print_list(list *alist) {
  */
 int main(int argc, char** argv) {
     list *alist = construct_list();
-    read_list(argc>1?argv[1]:"buecherliste.evil.txt", alist);
+    read_list(argc>1?argv[1]:"buecherliste.txt", alist);
     print_list(alist);
     free_list(alist);
     return 0;
