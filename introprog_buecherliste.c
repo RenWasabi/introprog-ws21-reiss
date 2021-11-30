@@ -65,9 +65,12 @@ element *construct_element(char *title, char* author, int year, long long int is
   // Zuweisung der Werte zum richtigen Teil der Element
   /* Zuweisung mit strncpy, sonst beim Compilen:
    * error: array type 'char [255]' is not assignable */
-  // Nullterminator: muss ich auf 254 oder 255 begrenzen? 
-  strncpy(book->title, title, 255);
-  strncpy(book->author,author, 255);
+  // Nullterminator: kopiere so weit wie möglich ins Array, setze 0 Terminator
+  // für lange Titel/Namen gibt es sonst keinen Terminator
+  strncpy(book->title, title, MAX_STR-1);
+  book->title[254] = '\0';
+  strncpy(book->author,author, MAX_STR-1);
+  book->author[254] = '\0';
   book-> year = year;
   book-> isbn = isbn;
   book-> next = NULL; // initialisiere Pointer auf Folgeelement mit NULL
@@ -151,7 +154,7 @@ void print_list(list *alist) {
  */
 int main(int argc, char** argv) {
     list *alist = construct_list();
-    read_list(argc>1?argv[1]:"buecherliste.txt", alist);
+    read_list(argc>1?argv[1]:"buecherliste.evil.txt", alist);
     print_list(alist);
     free_list(alist);
     return 0;
