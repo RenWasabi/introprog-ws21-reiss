@@ -20,19 +20,11 @@ typedef struct _list { /* Separater Wurzelknoten */
 } list;
 
 /* HIER struct _element implementieren. */
-struct _element {
-  // die char Arrays sollen statisch auf 255 begrenzt sein (muss ich initialisieren?)
-  char title[MAX_STR];
-  char author[MAX_STR];
-  int year;
-  long long int isbn;
-  element *next;   // Pointer auf das nächste Listenelement hat Typ Listenelement-Pointer
-};/* HIER struct _element implementieren. */
 
 /* Fuege ein Element in die Liste ein, sodass die Liste aufsteigend
- * nach ISBN sortiert ist.  DafÃ¼r muss das erste Element ermittelt
+ * nach ISBN sortiert ist.  Dafür muss das erste Element ermittelt
  * werden, das in der bisher sortierten Liste eine ISBN besitzt,
- * die grÃ¶ÃŸer ist als die des neuen Elements.  Wenn die Liste leer
+ * die größer ist als die des neuen Elements.  Wenn die Liste leer
  * ist, soll das Element direkt an den Anfang platziert werden.
  *
  * first    - Pointer auf das erste Element (bzw. Anfang) der Liste
@@ -46,46 +38,25 @@ element* insert_sorted(element *first, element *new_elem) {
     /* HIER implementieren. */
 }
 
-
+/* Kreiere ein neues Element mit dynamischem Speicher.
+ *
+ * title  - Titel des Buches
+ * author - Autor des Buches
+ * year   - Erscheinungsjahr des Buches
+ * isbn   - ISBN des Buches
+ *
+ * Gib einen Pointer auf das neue Element zurueck.
+ */
 element *construct_element(char *title, char* author, int year, long long int isbn) {
     /* HIER implementieren. */
-  element *book = (element*) malloc(sizeof(element)); // Pointer auf jedes Buchelement
-  // Zuweisung der Werte zum richtigen Teil der Element
-  /* Zuweisung mit strncpy, sonst beim Compilen:
-   * error: array type 'char [255]' is not assignable */
-  // Nullterminator: kopiere so weit wie möglich ins Array, setze 0 Terminator
-  // für lange Titel/Namen gibt es sonst keinen Terminator
-  strncpy(book->title, title, MAX_STR-1);
-  book->title[254] = '\0';
-  strncpy(book->author,author, MAX_STR-1);
-  book->author[254] = '\0';
-  book-> year = year;
-  book-> isbn = isbn;
-  book-> next = NULL; // initialisiere Pointer auf Folgeelement mit NULL
-  return book; //gib Pointer auf das konstruierte Listenelement an aufrufende Fkt. zurück
-};
+}
 
 /* Gib den der Liste und all ihrer Elemente zugewiesenen
  * Speicher frei.
  */
 void free_list(list *alist) {
     /* HIER implementieren. */
-  /* über alist iterieren, jedes Element freigeben, vorher next in Variable merken */
-  // speichere Adresse des ersten Elementes in Zwischenvariable tmp
-  element *tmp = alist->first;
-  // go through list until arriving at NULL-Pointer (= last element's pointer)
-  while (tmp != NULL) {
-    // merke Nachfolger des ersten Elements in tmp
-    tmp = alist->first->next;
-    // freee erstes Element
-    free(alist->first);
-    // Nachfolger wird neues erstes Element
-    alist->first = tmp;
-  }
-  // nachdem in oberer Schleife alle Elemente gefreed wurden, nun die Wurzel:
-  free(alist);
 }
-
 
 /* Lese die Datei ein und fuege neue Elemente in die Liste ein 
  * _Soll nicht angepasst werden_
