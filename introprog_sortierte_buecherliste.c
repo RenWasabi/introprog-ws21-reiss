@@ -46,14 +46,49 @@ struct _element {
 //} 
 
 
-// zum Test, ob Programm überhaupt wie ursprünglich läuft
 element *insert_sorted(element *first, element *new_elem) {
-    /* HIER implementieren. */
-  new_elem->next = first; // neues Element zeigt auf erstes Listenelement
-  /* in read_list: alist->first = insert_at_begin(alist->first, new_elem);
-   * die Funktion muss also einen Pointer auf das neue Element zurückggeben */
-  // der counter des Wurzelelementes wird in der aufrufenden Fkt read_list erhöht
-  return new_elem;  
+  // Sonderfall 1: leere Liste
+  if (first == NULL){
+    first = new_elem;
+    // new_elem->next = NULL bereits durch Initialisierung in construct_element
+  }
+  // Sonderfall 2: erstes Element
+  else if (new_elem->isbn < first-> isbn){
+    new_elem->next = first;
+    // gib das neue Element als Anfang der Liste an aufrufende Funktion, beende
+    return new_elem;
+  }
+  // Regelfall bzw. Weg zum 3. Sonderfall
+  else {
+    // "Initialisierung" der Variablen vor Schleifenbeginn
+    new_elem->next = first->next;
+    /* prev_pointer zeigt immer auf das Vorgängerelement, dass jeweils auf 
+     * new_elem zeigen sollte */
+    element *prev_pointer = first;
+
+    // beginnt Schleife nur, wenn zweites Listenelement nicht NULL ist
+    if (new_elem->next != NULL){
+      /* verschiebe das neue Element und den Zeiger auf seinen Vorgänger nach hinten,
+       * bis hinter ihm ein Element mit höherer isbn oder der NULL-Pointer liegt */
+      while (new_elem->isbn > new_elem->next->isbn){
+	prev_pointer = new_elem->next;
+	new_elem->next = new_elem->next->next;
+	/* falls das neue Element an das Ende der Liste kommt, brich hier ab, damit kein
+	 * unzulässiger while-Vergleich mit dem NULL-Pointer (der kein ->isbn hat)
+	 * durchgeführt wird */
+	if (new_elem->next == NULL){
+	  break;
+	}
+      }
+    }
+    // lass das Vorgängerelement nun auf das neue Element zeigen
+    /* während prev_pointer oben nur immer wieder neue Adressen zugeweisen werden,
+     * wird hier auf das an der Adresse liegende Element selbst zugegriffen (?) */
+    prev_pointer->next = new_elem;
+  }
+
+  // Pointer auf neuen (Sonderfall 1) oder alten Anfang der Liste
+  return first;  
 }
 
 
