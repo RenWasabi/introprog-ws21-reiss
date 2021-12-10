@@ -48,7 +48,24 @@ void stack_push(stack* astack, float value)
  */
 float stack_pop(stack* astack)
 {
-    /* HIER implementieren */
+  // return NAN if stack is empty
+  if (astack->top == NULL){
+    return NAN;
+  }
+  // otherwise remove top element and return its value
+  else {
+    // store pointer to top element in variable
+    stack_element *popped_elem = astack->top;
+    float popped_value = popped_elem-> value;
+
+    // remove top element from stack
+    astack->top = popped_elem->next;
+
+    // free memory of popped element
+    free(popped_elem);
+
+    return popped_value;
+  }
 }
 
 /*
@@ -74,6 +91,41 @@ void process(stack* astack, char* token)
     stack_push(astack, value);
   }
 
+  // 2nd case: number is operator +,-,*
+  // +
+  else if (is_add(token)){
+    //pop second operand
+    int b = stack_pop(astack);
+    // pop first operand
+    int a = stack_pop(astack);
+
+    // push result of operation onto stack
+    stack_push(astack, a+b);
+  }
+  // -
+  else if (is_sub(token)){
+    //pop second operand
+    int b = stack_pop(astack);
+    // pop first operand
+    int a = stack_pop(astack);
+
+    // push result of operation onto stack
+    stack_push(astack, a-b);
+  }
+  // *
+  else if (is_mult(token)){
+    //pop second operand
+    int b = stack_pop(astack);
+    // pop first operand
+    int a = stack_pop(astack);
+
+    // push result of operation onto stack
+    stack_push(astack, a*b);
+  }
+  
+  // 3rd case: token is neither number nor operator
+  // ignore = no action?
+  else {}
   
     return;
     /* Du kannst zur Erkennung der Token folgende Hilfsfunktionen
