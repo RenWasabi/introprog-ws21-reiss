@@ -25,7 +25,17 @@ struct _stack_element {
  */
 void stack_push(stack* astack, float value)
 {
-    /* HIER implementieren */
+  // allocate memory for new element on stack
+  stack_element *new_value = (stack_element *) calloc(1, sizeof(stack_element));
+  
+  new_value->value = value;
+  // new element points to previous top element on stack
+  new_value->next = astack->top;
+
+  // new element is pointed to as top element of stack
+  astack->top = new_value;
+
+  return;
 }
 
 /* 
@@ -55,8 +65,16 @@ float stack_pop(stack* astack)
  */
 void process(stack* astack, char* token)
 {
-    /* HIER implementieren */
-    printf("\n<Logik fehlt!>\n");
+  // 1st case: token is a number
+  if (is_number(token)){
+    
+    // convert token string to double
+    int value = atof(token);
+    // push number onto stack
+    stack_push(astack, value);
+  }
+
+  
     return;
     /* Du kannst zur Erkennung der Token folgende Hilfsfunktionen
      * benutzen:
@@ -95,7 +113,11 @@ void print_stack(stack *astack) {
  * Gebe einen Pointer auf den Stack zurück.
  */
 stack* stack_erstellen() {
-    /* HIER implementieren */
+  // allocate memory for stack
+  stack* astack = (stack *) calloc(1, sizeof(stack));
+  // initialize stack as pointing to NULL (empty stack)
+  astack->top = NULL;
+  return astack;
 }
 
 int main(int argc, char** args)
