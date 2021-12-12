@@ -95,9 +95,9 @@ void process(stack* astack, char* token)
   // +
   else if (is_add(token)){
     //pop second operand
-    int b = stack_pop(astack);
+    float b = stack_pop(astack);
     // pop first operand
-    int a = stack_pop(astack);
+    float a = stack_pop(astack);
 
     // push result of operation onto stack
     stack_push(astack, a+b);
@@ -105,9 +105,9 @@ void process(stack* astack, char* token)
   // -
   else if (is_sub(token)){
     //pop second operand
-    int b = stack_pop(astack);
+    float b = stack_pop(astack);
     // pop first operand
-    int a = stack_pop(astack);
+    float a = stack_pop(astack);
 
     // push result of operation onto stack
     stack_push(astack, a-b);
@@ -115,9 +115,9 @@ void process(stack* astack, char* token)
   // *
   else if (is_mult(token)){
     //pop second operand
-    int b = stack_pop(astack);
+    float b = stack_pop(astack);
     // pop first operand
-    int a = stack_pop(astack);
+    float a = stack_pop(astack);
 
     // push result of operation onto stack
     stack_push(astack, a*b);
