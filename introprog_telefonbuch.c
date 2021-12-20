@@ -39,7 +39,7 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
   while (current_node != NULL){
     /* new_node_parent goes down one level (becomes current position),
      * (?) pseudocode line 6 can be ommited because of this direct assignment */
-    new_node->parent = current_node;
+    new_node_parent = current_node;
     /* current node goes down one level 
      * (becomes left or right child after comparison of phone number value) */
     // 1. case: number already exists in tree
@@ -55,6 +55,9 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
     else {
       current_node = current_node->right;  // x <- rc(x)
     }
+
+    // assign the parent of current position to new_node
+    new_node->parent = new_node_parent;
 
     // assign new node as child of its new parents
     if (new_node->phone < new_node->parent->phone){
