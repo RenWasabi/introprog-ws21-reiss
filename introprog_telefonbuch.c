@@ -28,6 +28,8 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
   // (?) pseudocode line 7: if y = nil theh root(T) <- z
   if (bst->root == NULL){
     bst->root = new_node;
+    bst->count++;
+    return;
   }
   // 3.case: tree is not empty => insert node at correct place
   // initalize variables for search algorithm
@@ -55,18 +57,22 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
     else {
       current_node = current_node->right;  // x <- rc(x)
     }
-
-    // assign the parent of current position to new_node
-    new_node->parent = new_node_parent;
-
-    // assign new node as child of its new parents
-    if (new_node->phone < new_node->parent->phone){
-      new_node->parent->left = new_node;
-    }
-    else {
-      new_node->parent->right = new_node;
-    }  
   }
+
+  // assign the parent of current position to new_node
+  new_node->parent = new_node_parent;
+
+  // assign new node as child of its new parents
+  if (new_node->phone < new_node->parent->phone){
+    new_node->parent->left = new_node;
+  }
+  else {
+    new_node->parent->right = new_node;
+  }  
+
+  // if code makes it to this line, a new element was inserted
+  bst->count++;
+  
   return;   
 }
 
@@ -81,6 +87,12 @@ bst_node* find_node(bstree* bst, unsigned long phone) {
 
 /* Gibt den Unterbaum von node in "in-order" Reihenfolge aus */
 void bst_in_order_walk_node(bst_node* node) {
+  if (node != NULL){
+    bst_in_order_walk_node(node->left);
+    print_node(node);
+    bst_in_order_walk_node(node->right);
+    return;
+  }
 }
 
 /* 
