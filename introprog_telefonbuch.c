@@ -84,6 +84,18 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
  * NULL zurückgegeben.
  */
 bst_node* find_node(bstree* bst, unsigned long phone) {
+  // we start searching at the root
+  bst_node *current_node = bst->root;
+
+  while (current_node != NULL && current_node->phone != phone){
+    if (phone < current_node->phone){
+      current_node = current_node->left;
+    }
+    else {
+      current_node = current_node->right;
+    }
+  }
+  return current_node;
 }
 
 /* Gibt den Unterbaum von node in "in-order" Reihenfolge aus */
