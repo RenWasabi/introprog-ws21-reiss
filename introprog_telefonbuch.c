@@ -17,8 +17,9 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
   new_node->right = NULL;
   new_node->parent = NULL;
   new_node->phone = phone;
-  new_node->name = malloc (MAX_STR * sizeof(char));
-  strncpy(new_node->name, name, MAX_STR);
+  // +1 because strlen doesn't count '/0' 
+  new_node->name = malloc (MAX_STR * sizeof(strlen(name+1)));
+  strncpy(new_node->name, name, strlen(name+1));
 
   // insert
   // 1.case: tree doesn't exist
@@ -35,8 +36,7 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
   // 3.case: tree is not empty => insert node at correct place
   // initalize variables for search algorithm
   bst_node *new_node_parent = NULL; // y in pseudocode
-  bst_node *current_node = malloc(sizeof(bst_node));
-  current_node = bst->root; // x in pseudocode
+  bst_node *current_node = bst->root; // x in pseudocode
 
   /* new node will be inserted as leaf => algorithm ends when current
    * node (new node's position) is                          NULL-Pointer */
@@ -125,6 +125,14 @@ void bst_in_order_walk(bstree* bst) {
  * Knoten gelöscht.
  */
 void bst_free_subtree(bst_node* node) {
+  if (node != NULL){
+    bst_free_subtree(node->left);
+    bst_free_subtree(node->right);
+    // space for name was manually allocated in bst_insert_node
+    free(node->name);
+    free(node);
+  }
+  return;
 }
 
 /* 
