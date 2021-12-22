@@ -11,9 +11,6 @@
  * gleich (<=) und alle rechten Kinder einen Wert größer (>) haben.
  */
 void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
-  printf("!!! &name: %p\n", &name);
-  printf("name: %s\n", name);
-  printf("bst->root: %p\n", bst->root);
   // create and initialize new node
   bst_node *new_node = malloc(sizeof(bst_node));
   new_node->left = NULL;
@@ -22,26 +19,17 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
   new_node->phone = phone;
   new_node->name = malloc (MAX_STR * sizeof(char));
   strncpy(new_node->name, name, MAX_STR);
-  
-  printf("new_node: %p, left: %p, right: %p, parent: %p, phone: %lu, name: %s\n\n",new_node, new_node->left, new_node->right, new_node->parent, new_node->phone, new_node->name);
 
   // insert
   // 1.case: tree doesn't exist
   if (bst == NULL){
-    printf("bst->count: %d; bst->root->name: %s; new_node->name: %s\n", bst->count, bst->root->name, new_node->name);
-    return;
+      return;
   }
   // 2.case: tree is empty
   // (?) pseudocode line 7: if y = nil then root(T) <- z
   if (bst->root == NULL){
-    printf("hier");
-    bst->root = new_node;
+      bst->root = new_node;
     bst->count = bst->count + 1;
-
-    printf("bst->count: %d; bst->root->name: %s; &bst->root->name: %p, bst->root->phone: %lu\n", bst->count, bst->root->name, &(bst->root->name),  bst->root->phone);
-
-  printf("new_node: %p, left: %p, right: %p, parent: %p, phone: %lu, name: %s\n\n",new_node, new_node->left, new_node->right, new_node->parent, new_node->phone, new_node->name);
-  printf(" new_node->name: %s; &new_node->root->name: %p, new_node->phone: %lu\n\n\n\n",new_node->name, &(new_node->name),  new_node->phone);
     return;
   }
   // 3.case: tree is not empty => insert node at correct place
@@ -85,14 +73,7 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
   }  
 
   // if code makes it to this line, a new element was inserted
-  bst->count = bst->count +1;
-
-  printf("bst->count: %d; bst->root->name: %s; &bst->root->name: %p, bst->root->phone: %lu\n", bst->count, bst->root->name, &(bst->root->name),  bst->root->phone);
-
-  printf("new_node: %p, left: %p, right: %p, parent: %p, phone: %lu, name: %s\n\n",new_node, new_node->left, new_node->right, new_node->parent, new_node->phone, new_node->name);
-  printf("new_node->parent: %p, new_node->parent->name: %s\n", new_node->parent, new_node->parent->name);
-  printf(" new_node->name: %s; &new_node->name: %p, new_node->phone: %lu\n\n\n\n",new_node->name, &(new_node->name),  new_node->phone);
-  
+  bst->count = bst->count +1;  
   return;   
 }
 
@@ -110,9 +91,7 @@ void bst_in_order_walk_node(bst_node* node) {
   if (node != NULL){
     bst_in_order_walk_node(node->left);
     print_node(node);
-    printf("Name zu oben: %s\n", node->name);
-    printf("Adresse Name zu oben: %p\n", &(node->name));
-    bst_in_order_walk_node(node->right);
+     bst_in_order_walk_node(node->right);
     return;
   }
 }
