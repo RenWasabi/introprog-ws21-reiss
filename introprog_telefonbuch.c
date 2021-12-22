@@ -18,8 +18,8 @@ void bst_insert_node(bstree* bst, unsigned long phone, char *name) {
   new_node->parent = NULL;
   new_node->phone = phone;
   // +1 because strlen doesn't count '/0' 
-  new_node->name = malloc (MAX_STR * sizeof(strlen(name+1)));
-  strncpy(new_node->name, name, strlen(name+1));
+  new_node->name = malloc (MAX_STR * sizeof(strlen(name)+1)));
+  strncpy(new_node->name, name, strlen(name)+1));
 
   // insert
   // 1.case: tree doesn't exist
