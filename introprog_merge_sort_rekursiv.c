@@ -14,7 +14,49 @@
  */
 void merge(int* array, int first, int middle, int last)
 {
-  // HIER Funktion merge() implementieren
+  /* A = array, p = first, q = middle, r = last */
+
+  int len = last-first+1;
+  // Hilfsarray der Laenge r-p+1 zum Mergen
+  int *helper_array =malloc((len)* sizeof(int));
+
+  int left_index = first;
+  int right_index = middle+1;
+  int merge_index = 0;
+
+  while ((left_index <= middle) && (right_index <= last)){
+    if (array[left_index] <= array[right_index]){
+      helper_array[merge_index] = array[left_index];
+      left_index = left_index+1;
+      merge_index = merge_index+1;
+    }
+    else {
+      helper_array[merge_index] = array[right_index];
+      right_index = right_index+1;
+      merge_index = merge_index+1;
+    }  
+  }
+
+  while (left_index <= middle){
+    helper_array[merge_index] = array[left_index];
+    left_index = left_index+1;
+    merge_index = merge_index+1;
+  }
+
+  while (right_index <= last){
+    helper_array[merge_index] = array[right_index];
+    right_index = right_index+1;
+    merge_index = merge_index+1;
+  }
+
+  int i = 0;
+ for (int j=first; j<=last; j++){
+    array[j] = helper_array[i];
+    i++;
+  }  
+  
+  free(helper_array);
+  return;
 }
 
 /*
@@ -28,9 +70,21 @@ void merge(int* array, int first, int middle, int last)
  */
 void merge_sort(int* array, int first, int last)
 {
-  // HIER Funktion merge_sort() implementieren
+  // A = array (Pointer!), p = first, r = last
+  if (first < last){
+    /* Division von Integern gibt immer entweder genaues oder abgeschnittenes
+     * (= abgerundetes) Ergebnis zurück */    
+    int middle = (first+last)/2;
+    merge_sort(array, first, middle);
+    merge_sort(array, middle+1, last);
+    printf("Merge Array[%d]-[%d] mit Array[%d]-[%d]\n", first, middle, middle+1, last);
+    merge(array, first, middle, last);
+    print_array(array, last+1);   
+ 
+    return;
+  }
 }
-
+  
 /*
  * Hauptprogramm.
  *
@@ -50,6 +104,9 @@ int main (int argc, char *argv[])
     char *filename = argv[2];
     
     // Hier array initialisieren
+    // initialize integer array of length specified by user
+    int *array = calloc(atoi(argv[1]), sizeof(int));
+    
     
     int len = read_array_from_file(array, atoi(argv[1]), filename);
 
@@ -57,9 +114,13 @@ int main (int argc, char *argv[])
     print_array(array, len);
 
     // HIER Aufruf von "merge_sort()"
+    int first = 0;
+    merge_sort(array, first, len-1);
 
     printf("Sortiert:\n");
     print_array(array, len);
+
+    free(array);
 
     return 0;
 }
