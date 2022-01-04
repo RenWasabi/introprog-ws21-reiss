@@ -77,9 +77,7 @@ void merge_sort(int* array, int first, int last)
     int middle = (first+last)/2;
     merge_sort(array, first, middle);
     merge_sort(array, middle+1, last);
-    printf("Merge Array[%d]-[%d] mit Array[%d]-[%d]\n", first, middle, middle+1, last);
-    merge(array, first, middle, last);
-    print_array(array, last+1);   
+    merge(array, first, middle, last); 
  
     return;
   }
