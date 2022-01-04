@@ -134,5 +134,7 @@ int main (int argc, char *argv[])
     printf("Sortiert:\n");
     print_array(array, len);
 
+    free(array);
+
     return 0;
 }
