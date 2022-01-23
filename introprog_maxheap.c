@@ -19,6 +19,20 @@ void print_heap(heap* h){
   return;
   } */
 
+
+// ceiling function for calculating parent in heap_insert
+size_t calc_parent(size_t i){
+  size_t parent;
+  if (i % 2 == 0){
+    parent = i/2-1;
+  }
+  else {
+    // division result will be cut off
+    parent = i/2;
+  }
+  return parent;
+}
+
 /* Reserviere Speicher für einen Heap
  *
  * Der Heap soll dabei Platz für capacity Elemente bieten.
@@ -103,13 +117,13 @@ int heap_insert(heap* h, int key) {
     return -1;
   }
   h->size = h->size+1;
-  size_t i = h->size-1; // -1 because index starts at 0
- size_t parent = i/2;
+  size_t i = h->size-1*INDEX_WORD; // -1 because index starts at 0
+  size_t parent = calc_parent(i);
  // division of uneven size_t/lu returns cut off result
  while (i>0 && *(h->elements+parent*INDEX_WORD) < key){
    *(h->elements+i*INDEX_WORD) = *(h->elements+parent*INDEX_WORD);
-   i = i/2;
-   parent = i/2;
+   i = parent;
+   parent = calc_parent(i);
  }
  *(h->elements+i*INDEX_WORD) = key;
  return 0;
