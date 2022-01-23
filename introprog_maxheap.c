@@ -9,6 +9,7 @@
 #define INDEX_WORD sizeof(int)
 
 // for me while developing
+/*
 void print_heap(heap* h){
   printf("Heap:\n");
   for (int i = 0; i<h->size; i++){
@@ -16,7 +17,7 @@ void print_heap(heap* h){
   }
   printf("\nheap size %zu\n\n",h->size);
   return;
-  }
+  } */
 
 /* Reserviere Speicher für einen Heap
  *
@@ -52,10 +53,6 @@ void heapify(heap* h, size_t i) {
   size_t r = 2*i+2;
   size_t largest;
   // test if left child larger than i
-  printf("heapsize: %lu\n", h->size);
-  printf("*(h->elements+l*INDEX_WORD): %d\n", *(h->elements+l*INDEX_WORD));
-  printf("*(h->elements+i*INDEX_WORD): %d\n", *(h->elements+i*INDEX_WORD));
-  printf("*(h->elements+r*INDEX_WORD): %d\n", *(h->elements+r*INDEX_WORD));
   if (l<h->size && *(h->elements+l*INDEX_WORD)>*(h->elements+i*INDEX_WORD)){
     largest = l;
   }
@@ -66,13 +63,11 @@ void heapify(heap* h, size_t i) {
   if (r<h->size && *(h->elements+r*INDEX_WORD)>*(h->elements+largest*INDEX_WORD)){
     largest = r;
   }
-  printf("*(h->elements+largest*INDEX_WORD): %d\n", *(h->elements+largest*INDEX_WORD));
   if (largest != i){
     // swap heap[i] and heap[largest]
     int temp_value = *(h->elements+i*INDEX_WORD);
     *(h->elements+i*INDEX_WORD) = *(h->elements+largest*INDEX_WORD);
     *(h->elements+largest*INDEX_WORD) = temp_value;
-    printf("rekursiv!");
     heapify(h, largest);
   }
   return;
@@ -85,7 +80,6 @@ void heapify(heap* h, size_t i) {
  * zurückgegeben. Wenn der Heap leer ist, wird -1 zurückgegeben.
  */
 int heap_extract_max(heap* h) {
-  print_heap(h);
   if (h->size == 0){
     return -1;
   }
@@ -95,9 +89,7 @@ int heap_extract_max(heap* h) {
     // first element = last element
     *(h->elements) = *(h->elements+(h->size-1)*INDEX_WORD);
     h->size = h->size-1;
-    print_heap(h);
     heapify(h,0);
-    print_heap(h);
     return max;    
   }
 }

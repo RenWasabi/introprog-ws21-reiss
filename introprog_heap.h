@@ -25,4 +25,4 @@ int heap_extract_max(heap* h);
 int heap_insert(heap* h, int key);
 void heap_free(heap* h);
 // for me for developing
-void print_heap(heap* h);
+// void print_heap(heap* h);
