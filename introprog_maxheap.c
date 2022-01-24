@@ -30,6 +30,7 @@ size_t calc_parent(size_t i){
     // division result will be cut off
     parent = i/2;
   }
+  //printf("parent of %lu is %lu\n", i, parent);
   return parent;
 }
 
@@ -104,6 +105,7 @@ int heap_extract_max(heap* h) {
     *(h->elements) = *(h->elements+(h->size-1)*INDEX_WORD);
     h->size = h->size-1;
     heapify(h,0);
+    // print_heap(h);
     return max;    
   }
 }
@@ -117,7 +119,8 @@ int heap_insert(heap* h, int key) {
     return -1;
   }
   h->size = h->size+1;
-  size_t i = h->size-1*INDEX_WORD; // -1 because index starts at 0
+  size_t i = h->size-1; // -1 because index starts at 0
+  //printf("i: %lu\n", i);
   size_t parent = calc_parent(i);
  // division of uneven size_t/lu returns cut off result
  while (i>0 && *(h->elements+parent*INDEX_WORD) < key){
@@ -126,6 +129,7 @@ int heap_insert(heap* h, int key) {
    parent = calc_parent(i);
  }
  *(h->elements+i*INDEX_WORD) = key;
+ // print_heap(h);
  return 0;
 }
 
