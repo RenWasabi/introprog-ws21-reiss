@@ -54,15 +54,6 @@ heap* heap_create(size_t capacity) {
   h->elements = calloc(capacity, INDEX_WORD);
   h->size = 0;
   h->capacity = capacity;
-  size_t actual_alloc = (h->elements+capacity*INDEX_WORD)- h->elements;
-  printf("alloc'd space: %lu\n", actual_alloc);
-  printf("heap start address: %p\n", h->elements);
-  printf("h->elements[0]: %d\n",h->elements[0] );
-  printf("&(h->elements[0]): %p\n",&(h->elements[0]) );
-  printf("h->elements[capacity-1]: %d\n",h->elements[capacity-1] );
-  printf("&(h->elements[capacity-1]): %p\n",&(h->elements[capacity-1]) );
-  printf("heap end address: %p\n", h->elements+((capacity-1)*INDEX_WORD));
-  printf("INDEX_WORD: %lu\n", INDEX_WORD);
   return h;
 }
 
@@ -78,21 +69,21 @@ void heapify(heap* h, size_t i) {
   size_t r = 2*i+2;
   size_t largest;
   // test if left child larger than i
-  if (l<h->size && *(beginning_of_heap+l*INDEX_WORD)>*(beginning_of_heap+i*INDEX_WORD)){
+  if (l<h->size && beginning_of_heap[l] > beginning_of_heap[i]){
     largest = l;
   }
   else {
     largest = i;
   }
   // test if right child larger than max{left child, i}
-  if (r<h->size && *(beginning_of_heap+r*INDEX_WORD)>*(beginning_of_heap+largest*INDEX_WORD)){
+  if (r<h->size && beginning_of_heap[r] > beginning_of_heap[largest]){
     largest = r;
   }
   if (largest != i){
     // swap heap[i] and heap[largest]
-    int temp_value = *(beginning_of_heap+i*INDEX_WORD);
-    *(beginning_of_heap+i*INDEX_WORD) = *(beginning_of_heap+largest*INDEX_WORD);
-    *(beginning_of_heap+largest*INDEX_WORD) = temp_value;
+    int temp_value = beginning_of_heap[i];
+    beginning_of_heap[i] = beginning_of_heap[largest];
+    beginning_of_heap[largest] = temp_value;
     heapify(h, largest);
   }
   return;
@@ -111,9 +102,9 @@ int heap_extract_max(heap* h) {
   }
   else {
     // first element = root is max bc of heap property
-    int max = *(beginning_of_heap);
+    int max = beginning_of_heap[0];
     // first element = last element
-    *(h->elements) = *(beginning_of_heap+(h->size-1)*INDEX_WORD);
+    beginning_of_heap[0] = beginning_of_heap[h->size-1];
     h->size = h->size-1;
     heapify(h,0);
     // print_heap(h);
@@ -131,20 +122,18 @@ int heap_insert(heap* h, int key) {
    if (h->size == h->capacity){
     return -1;
   }
+   else {
+   }
   h->size = h->size+1;
   size_t i = h->size-1; // -1 because index starts at 0
-  //printf("i: %lu\n", i);
   size_t parent = calc_parent(i);
  // division of uneven size_t/lu returns cut off result
- while (i>0 && *(beginning_of_heap+parent*INDEX_WORD) < key){
-   *(beginning_of_heap+i*INDEX_WORD) = *(beginning_of_heap+parent*INDEX_WORD);
+  while (i>0 && beginning_of_heap[parent] < key){
+    beginning_of_heap[i] = beginning_of_heap[parent];
    i = parent;
    parent = calc_parent(i);
  }
- printf("i: %lu\n", i);
- printf("beginning_of_heap+i*INDEX_WORD: %p\n", beginning_of_heap+i*INDEX_WORD);
- *(beginning_of_heap+i*INDEX_WORD) = key;
- // print_heap(h);
+ beginning_of_heap[i] = key;
  return 0;
 }
 
