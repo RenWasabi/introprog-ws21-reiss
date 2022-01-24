@@ -51,7 +51,7 @@ heap* heap_create(size_t capacity) {
   // allocate space for heap head element
   heap* h = malloc(sizeof(heap));
   // allocate space for the elements of the heap   
-  h->elements = calloc(capacity, sizeof(size_t));
+  h->elements = calloc(capacity, sizeof(int));
   h->size = 0;
   h->capacity = capacity;
   return h;
