@@ -8,10 +8,11 @@
 /*****************************************************
  * Die benoetigten structs findet Ihr in quicksort.h *
  *****************************************************/
-
+// Liste wird in main deklariert, hier also keine Speicherallozierung mehr
 void init_list(list* mylist)
 {
-// HIER Liste initialisieren
+  mylist->first = NULL;
+  mylist->last = NULL;
 }
 
 
@@ -19,7 +20,15 @@ void init_list(list* mylist)
 // Diese Funktion fügt Listenelemente an die Liste an
 void insert_list(list_element* le, list* mylist)
 {
-    // HIER Code einfügen
+  // Liste ist leer
+  if (mylist->first == NULL){
+    mylist->first = le;
+    return;
+  }
+  mylist->last->next = le;
+  // Listeninformationen aktualisieren
+  mylist->last = le;
+  return;
 }
 
 // Speicher für Listenelemente wieder freigeben
@@ -36,6 +45,28 @@ void read_data(char* filename, list* mylist)
         // * Speicher allozieren
         // * Daten in list_element einlesen
         // * insert_list benutzen, um list_element in Liste einzufügen
+
+  size_t MAX_LINE_LEN = 200;
+  FILE* input_file = fopen(filename,"r");
+
+  // allocate buffer in which lines while be stored for parsing
+  char* newline = (char*) malloc(MAX_LINE_LEN*sizeof(char));
+  int pw_frequency = 0;
+  // max passwort length will definitely be lower than max line length
+  char* password = (char*) malloc(MAX_LINE_LEN*sizeof(char));
+
+  while(fgets(newline, MAX_LINE_LEN, input_file) != NULL){
+    sscanf(newline, "%s %d", password, &pw_frequency);
+    printf("%s\n", password);
+    printf("%d\n", pw_frequency);
+    puts(newline);
+  }
+
+  free(password);
+  free(newline);
+  fclose(input_file);
+
+  return;
 }
 
 // Liste teilen. Teillisten werden in left und right zurück gegeben
