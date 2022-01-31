@@ -23,6 +23,7 @@ void insert_list(list_element* le, list* mylist)
   // Liste ist leer
   if (mylist->first == NULL){
     mylist->first = le;
+    mylist->last = le;
     return;
   }
   mylist->last->next = le;
@@ -34,7 +35,19 @@ void insert_list(list_element* le, list* mylist)
 // Speicher für Listenelemente wieder freigeben
 void free_list(list* mylist)
 {
-    // HIER Code einfügen
+
+  list_element *tmp = mylist->first;
+  while (tmp != NULL){
+    tmp = mylist->first->next;
+    if(mylist->first == mylist->last){
+      mylist->last = NULL;
+    }
+    free(mylist->first->password);
+    free(mylist->first);
+    mylist->first = tmp;
+  }
+  // free(mylist);
+  return;
 }
 
 
@@ -55,13 +68,21 @@ void read_data(char* filename, list* mylist)
   // max passwort length will definitely be lower than max line length
   char* password = (char*) malloc(MAX_LINE_LEN*sizeof(char));
 
+
   while(fgets(newline, MAX_LINE_LEN, input_file) != NULL){
     sscanf(newline, "%s %d", password, &pw_frequency);
-    printf("%s\n", password);
-    printf("%d\n", pw_frequency);
-    puts(newline);
-  }
 
+    list_element* new_element = malloc(sizeof(list_element));
+    new_element->password = malloc(MAX_LINE_LEN*sizeof(char));
+    strncpy(new_element->password, password, MAX_LINE_LEN);
+    // new_element->password[MAX_LINE_LEN-1] = '\0';
+    new_element->count = pw_frequency;
+    
+    // printf("%s\n", new_element->password);
+    // printf("%d\n", new_element->count);
+    // puts(newline);
+    insert_list(new_element, mylist);
+  }
   free(password);
   free(newline);
   fclose(input_file);
@@ -85,7 +106,11 @@ void qsort_list(list* mylist)
 // Liste ausgeben
 void print_list(list* mylist)
 {
-    // HIER Code einfügen:
-    // * Laufe über die list_element in mylist und gebe sie aus.
+  list_element* counter = mylist->first;
+  while(counter != NULL){
+    printf("%s %d\n", counter->password, counter->count);
+    counter = counter->next;
+  }
+  return;
 }
 
