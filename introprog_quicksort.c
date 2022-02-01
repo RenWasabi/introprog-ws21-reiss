@@ -24,12 +24,12 @@ void insert_list(list_element* le, list* mylist)
   if (mylist->first == NULL){
     mylist->first = le;
     mylist->last = le;
-    return;
+  } else {
+    mylist->last->next = le;
+    // Listeninformationen aktualisieren
+    mylist->last = le;
   }
-  mylist->last->next = le;
-  // Listeninformationen aktualisieren
-  mylist->last = le;
-  return;
+    return;
 }
 
 // Speicher für Listenelemente wieder freigeben
@@ -93,14 +93,111 @@ void read_data(char* filename, list* mylist)
 // Liste teilen. Teillisten werden in left und right zurück gegeben
 list_element* partition( list* input, list* left, list* right )
 {
-    // HIER Code einfügen:
-    // parition() Funktion implementieren
-}
+  /*
+  printf("Eingangsliste:\n");
+  print_list(input);
+  printf("\n");
+  */
+  // Initialisierung left und right Listen
+  left->first = NULL;
+  left->last = NULL;
+  right->first = NULL;
+  right->last = NULL;
+  
+  // last element is pivot
+  list_element *pivot = input->last;
+  
+  list_element *tmp = input->first;
+  // printf("input->first: %s %d\n", input->first->password, input->first->count);
+  // printf("input->last: %s %d\n", input->last->password, input->last->count);
+    // durchlaufe Liste, füge jedes Element < pivot links, >= pivot rechts ein
+  while (tmp != pivot){
+    // printf("tmp: %s %d\n", tmp->password, tmp->count);
+ 
+    if (tmp->count < pivot->count){
+      // füge in linke Liste ein
+      if (left->first == NULL){
+	left->first = tmp;
+	left->last = tmp;
+      }
+      else {
+      left->last->next = tmp;
+      left->last = tmp;
+      }
+    }
+    
+    else {
+      /*
+      if (right->first == NULL){
+	right->first = tmp;
+	right->last = tmp;
+      }
+      else {
+      right->last->next = tmp;
+      right->last = tmp;
+      }*/
+      insert_list(tmp, right);
+    }
+      tmp = tmp->next;
+      //  printf("next tmp: %s %d\n", tmp->password, tmp->count);
+    }
+  
+
+  /*
+  printf("Pivot: %s %d\n", pivot->password, pivot->count);
+  printf("linke Liste:\n");
+  print_list(left);
+  printf("\n");
+  printf("rechte Liste:\n");
+  print_list(right);
+  printf("\n\n\n");
+  */
+  
+  return pivot;
+  }
 
 // Hauptfunktion des quicksort Algorithmus
 void qsort_list(list* mylist)
 {
-    // HIER Code einfügen
+  if(mylist->first == mylist->last){
+    return;
+  }
+  else {
+    list *left = malloc(sizeof(list));
+    list *right = malloc(sizeof(list));
+    list_element *pivot = partition(mylist, left, right);
+  
+    qsort_list(left);
+    qsort_list(right);
+
+    //einfügen linker Listenteil
+    if(left->first == NULL){
+      mylist->first = pivot;
+    }
+    else {
+      mylist->first = left->first;
+      left->last->next = pivot;
+    }
+    //einfügen rechter Listenteil
+    if (right->first == NULL){
+      pivot->next = NULL;
+      mylist->last = pivot;
+    }
+    else{
+      pivot->next = right->first;
+      mylist->last = right->last;
+    }
+    
+
+
+    free(left);
+    free(right);
+  }
+
+
+
+
+  
 }
 
 // Liste ausgeben
