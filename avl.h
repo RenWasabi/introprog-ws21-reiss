@@ -24,6 +24,15 @@ struct AVLTree
 typedef struct AVLNode AVLNode;
 typedef struct AVLTree AVLTree;
 
+// custom: update the height of a node
+void AVL_update_height(AVLNode* node);
+
+// custom: create new node
+AVLNode* AVL_create_node(AVLNode* parent, int value);
+
+// custom: für tree walk
+void AVL_in_order_walk_node(AVLNode* root);
+
 // Gibt den gesamten AVL Baum in "in-order" Reihenfolge aus.
 void AVL_in_order_walk(AVLTree* avlt);
 
